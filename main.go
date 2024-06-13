@@ -77,8 +77,11 @@ func main() {
 	app.Delete("/api/todos/:id", deleteTodo)
 
 	PORT := os.Getenv("PORT")
-	if PORT == "" {
-		PORT = "5000"
+
+	if os.Getenv("ENV") != "production" {
+		if PORT == "" {
+			PORT = "5000"
+		}
 	}
 
 	log.Fatal(app.Listen("0.0.0.0:" + PORT))
